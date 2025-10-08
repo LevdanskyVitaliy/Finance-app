@@ -1,0 +1,102 @@
+{
+  "transactions": [
+    {
+      "id": "535c",
+      "amount": 0,
+      "category": 1,
+      "date": "2025-10-07T12:08:17.246Z",
+      "description": "New transaction via button",
+      "type": "expense"
+    },
+    {
+      "id": "9e2d",
+      "amount": 0,
+      "category": 1,
+      "date": "2025-10-07T12:08:17.839Z",
+      "description": "New transaction via button",
+      "type": "expense"
+    },
+    {
+      "id": "21fc",
+      "amount": 0,
+      "category": 1,
+      "date": "2025-10-07T19:41:10.990Z",
+      "description": "New transaction via button",
+      "type": "expense"
+    },
+    {
+      "id": "d78b",
+      "amount": 0,
+      "category": 1,
+      "date": "2025-10-07T20:03:12.232Z",
+      "description": "New transaction via button",
+      "type": "expense"
+    },
+    {
+      "id": "3552",
+      "amount": 0,
+      "category": 2,
+      "date": "2025-10-07T20:03:17.262Z",
+      "description": "New transaction via button",
+      "type": "expense"
+    },
+    {
+      "id": "6f5d",
+      "amount": 0,
+      "category": 1,
+      "date": "2025-10-07T20:05:30.798Z",
+      "description": "New transaction via button",
+      "type": "expense"
+    },
+    {
+      "id": "0fcc",
+      "amount": 0,
+      "category": 2,
+      "date": "2025-10-08T06:51:54.364Z",
+      "description": "New transaction via button",
+      "type": "expense"
+    },
+    {
+      "id": "9f70",
+      "amount": 0,
+      "category": "Salary",
+      "date": "2025-08-09",
+      "description": "New transaction via button",
+      "type": "expense"
+    },
+    {
+      "id": "21c1",
+      "amount": 0,
+      "category": 1,
+      "date": "2025-10-08T12:09:05.103Z",
+      "description": "New transaction via button",
+      "type": "expense"
+    },
+    {
+      "id": "acdb",
+      "amount": 105,
+      "category": "Foodo",
+      "date": "2025-08-06",
+      "description": "sdoifhsfohwrfoh",
+      "type": "income"
+    },
+    {
+      "id": "c136",
+      "amount": 0,
+      "category": 2,
+      "date": "2025-10-08T12:11:46.722Z",
+      "description": "New transaction via button",
+      "type": "expense"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Food"
+    },
+    {
+      "id": "2",
+      "name": "Salary"
+    }
+  ]
+}
