@@ -73,7 +73,6 @@ async function populateCategories() {
   });
 }
 
-// Convert category ID to category name for display
 function categoryNameById(catId) {
   const cat = cachedCategories.find((c) => c.id == catId);
   return cat ? cat.name : catId;
@@ -194,7 +193,6 @@ function attachActionsHandler() {
       const overlay = document.getElementById("bg-blur-overlay");
       overlay.style.display = "block";
 
-      // Replace table cells with input fields for editing
       tr.innerHTML = `
         <td>${dataId}</td>
         <td><input type="number" step="0.01" value="${tr.children[1].textContent.trim()}" class="border rounded px-1 w-full"></td>
@@ -225,7 +223,7 @@ function attachActionsHandler() {
         const inputs = tr.querySelectorAll("input, select");
         const updates = {
           amount: parseFloat(inputs[0].value),
-          date: inputs[1].value,
+          date: new Date(inputs[1].value).toISOString(),
           category: inputs[2].value,
           description: inputs[3].value,
           type: inputs[4].value,
@@ -279,11 +277,29 @@ operationAddBtn.addEventListener("click", () => {
 });
 
 let currentPage = 1;
-const pageSize = 10;
+let pageSize = 10;
+let sortField = "";
+let sortDirection = "asc";
+
+document.getElementById("sortField").addEventListener("change", (e) => {
+  sortField = e.target.value;
+  currentPage = 1;
+  fetchAndRender();
+});
+
+document.getElementById("sortDirection").addEventListener("change", (e) => {
+  sortDirection = e.target.value;
+  currentPage = 1;
+  fetchAndRender();
+});
+
 let totalPages = 1;
 let filters = { category: "", type: "" };
 
 async function fetchAndRender() {
+  // WHEN MAKING QUERY TO SERVER It WAS NOT APPLYING SORT BY DESCENDING
+  const orderParam = sortDirection === "desc" ? `-${sortField}` : sortField;
+
   const params = {
     _page: currentPage,
     _limit: pageSize,
@@ -297,18 +313,26 @@ async function fetchAndRender() {
     params.type = filters.type;
   }
 
+  if (sortField) {
+    params._sort = orderParam;
+    // ON JSON SERVER EVERYTHNG IS WORKING BUT ON PAGE DESCENDING QUERY IS NOT WORKING
+  }
+
   try {
     const url = `http://localhost:3000/transactions?${new URLSearchParams(
       params
     )}`;
     const res = await fetch(url);
     const transactions = await res.json();
-    const totalCount = Number(res.headers.get("X-Total-Count")) || 0;
+    const totalCount = Number(res.headers.get("X-Total-Count")) || 1;
+    // IT IS NOT GETTING PAGE SIZE, COMMENTS DOWN BELOW ARE NOT WORKING
     // const totalCount = transactions.totalCount;
+    // const stringifiedTransaction = transactions.stringify();
+    // const data = JSON.parse(stringifiedTransaction);
 
     renderTable(transactions);
 
-    console.log("number is - ", Number(res.headers.get("X-Total-Count")));
+    console.log("number is - ", Number(res.headers["X-Total-Count"]));
     console.log(totalCount);
     totalPages = Math.ceil(totalCount / pageSize);
 
@@ -378,6 +402,15 @@ toggleBtn.addEventListener("click", () => {
     toggleBtn.classList.remove("text-black");
     toggleBtn.classList.add("text-white");
   }
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("filterShow").onchange = (e) => {
+    pageSize = Number(e.target.value) || 10;
+    currentPage = 1;
+    fetchAndRender();
+  };
+  // fetchAndRender();
 });
 
 (async function init() {
