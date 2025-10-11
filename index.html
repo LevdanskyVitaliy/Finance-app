@@ -15,6 +15,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="icon" href="https://finance-app💲" />
 
+
+
     <style>
 .expanded-row {
   position: fixed;
@@ -99,8 +101,26 @@
 #filterShow {
   float: right;
 }
+
+
+
+#table-id-div {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  #main-content {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
     </style>
   </head>
+
+  
 
   <body
     class="dark:bg-[#013220] bg-[#A8DCAB] text-gray-800  font-sans flex bg-dollar-pattern pt-10 md:pt-5"
@@ -145,7 +165,7 @@
     </header>
 
     
-    <main  class="mt-20 md:mt-25 p-4">
+    <main  class="mt-20 md:mt-25 p-4 max-w-7xl mx-auto px-4">
       <div id="filters" class="flex flex-wrap gap-4 space-y-2 sm:space-y-0 sm:flex-row items-center mb-4 max-w-4xl mx-auto px-4 text-gray-900 dark:text-white">
         <select id="filterCategory" class="px-3 py-2 rounded border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">
           <option value="">All Categories</option>
@@ -188,8 +208,8 @@
       </div>
       </div>
       <!-- MAIN CONTENT -->
-      <div id="main-content ">
-        <div id="table-id-div" class="relative overflow-x-auto shadow-md rounded-lg border border-gray-300 dark:border-gray-700">
+      <div   id="main-content" class="max-w-7xl mx-auto px-4">
+        <div id="table-id-div" class="max-w-7xl mx-auto overflow-x-auto shadow-md rounded-lg border border-gray-300 dark:border-gray-700">
           <table id="transactions-table" class="min-w-full table-auto border-collapse border border-gray-300 dark:border-gray-700">
             <thead class="bg-gray-900 text-white">
               <tr>
@@ -200,9 +220,8 @@
                 <th class="border border-gray-600 px-3 py-2 text-center text-xs sm:text-sm md:text-base font-semibold">Description</th>
                 <th class="border border-gray-600 px-3 py-2 text-center text-xs sm:text-sm md:text-base font-semibold">Type</th>
                 <th class="border border-gray-600 px-3 py-2 text-center text-xs sm:text-sm md:text-base font-bold">Actions</th>
-                <!-- <th id="sortAmount" class="cursor-pointer border border-gray-600 py-2 text-center text-xs sm:text-sm md:text-base font-bold">Amount ▲▼</th>
-<th id="sortDate" class="cursor-pointer border border-gray-600 py-2 text-center text-xs sm:text-sm md:text-base font-bold">Date ▲▼</th>
-              </tr> -->
+    
+              <tr>
             </thead>
             <tbody class="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 divide-y divide-gray-300">
             </tbody>
@@ -210,7 +229,8 @@
 
       </div>
 
-      <!--  -->
+      </div>
+    
 <div id="pagination" class="flex items-center justify-center space-x-2 mt-4">
   <button id="prevPage" class="px-3 py-1 rounded bg-gray-300 hover:bg-gray-400 disabled:opacity-50" disabled>
     Prev
