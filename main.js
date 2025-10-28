@@ -297,12 +297,11 @@ let totalPages = 1;
 let filters = { category: "", type: "" };
 
 async function fetchAndRender() {
-  // WHEN MAKING QUERY TO SERVER It WAS NOT APPLYING SORT BY DESCENDING
   const orderParam = sortDirection === "desc" ? `-${sortField}` : sortField;
 
   const params = {
     _page: currentPage,
-    _limit: pageSize,
+    _per_page: pageSize,
   };
 
   if (filters.category) {
@@ -315,7 +314,6 @@ async function fetchAndRender() {
 
   if (sortField) {
     params._sort = orderParam;
-    // ON JSON SERVER EVERYTHNG IS WORKING BUT ON PAGE DESCENDING QUERY IS NOT WORKING
   }
 
   try {
@@ -323,16 +321,14 @@ async function fetchAndRender() {
       params
     )}`;
     const res = await fetch(url);
-    const transactions = await res.json();
-    const totalCount = Number(res.headers.get("X-Total-Count")) || 1;
-    // IT IS NOT GETTING PAGE SIZE, COMMENTS DOWN BELOW ARE NOT WORKING
-    // const totalCount = transactions.totalCount;
-    // const stringifiedTransaction = transactions.stringify();
-    // const data = JSON.parse(stringifiedTransaction);
+    const body = await res.json();
+    const transactions = body.data;
+    console.log(transactions);
+
+    const totalCount = body.items;
 
     renderTable(transactions);
 
-    console.log("number is - ", Number(res.headers["X-Total-Count"]));
     console.log(totalCount);
     totalPages = Math.ceil(totalCount / pageSize);
 
@@ -344,7 +340,7 @@ async function fetchAndRender() {
     document.getElementById("nextPage").disabled = currentPage >= totalPages;
 
     attachActionsHandler();
-  } catch {
+  } catch (error) {
     console.error("Failed to fetch transactions:", error);
   }
 }
@@ -385,32 +381,13 @@ document.getElementById("filterReset").onclick = () => {
   fetchAndRender();
 };
 
-const toggleBtn = document.getElementById("toggle");
-const root = document.documentElement;
-toggleBtn.textContent = root.classList.contains("dark")
-  ? "Light mode"
-  : "Dark mode";
-
-toggleBtn.addEventListener("click", () => {
-  root.classList.toggle("dark");
-  if (root.classList.contains("dark")) {
-    toggleBtn.textContent = "Light mode";
-    toggleBtn.classList.add("text-black");
-    toggleBtn.classList.remove("text-white");
-  } else {
-    toggleBtn.textContent = "Dark mode";
-    toggleBtn.classList.remove("text-black");
-    toggleBtn.classList.add("text-white");
-  }
-});
-
 window.addEventListener("DOMContentLoaded", () => {
   document.getElementById("filterShow").onchange = (e) => {
     pageSize = Number(e.target.value) || 10;
     currentPage = 1;
     fetchAndRender();
+    // initHeader();
   };
-  // fetchAndRender();
 });
 
 (async function init() {
