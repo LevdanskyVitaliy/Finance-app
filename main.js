@@ -372,6 +372,28 @@ document.getElementById("filterType").onchange = (e) => {
   fetchAndRender();
 };
 
+
+
+const toggleBtn = document.getElementById("toggle");
+const root = document.documentElement;
+toggleBtn.textContent = root.classList.contains("dark")
+  ? "Light mode"
+  : "Dark mode";
+
+toggleBtn.addEventListener("click", () => {
+  root.classList.toggle("dark");
+  if (root.classList.contains("dark")) {
+    toggleBtn.textContent = "Light mode";
+    toggleBtn.classList.add("text-black");
+    toggleBtn.classList.remove("text-white");
+  } else {
+    toggleBtn.textContent = "Dark mode";
+    toggleBtn.classList.remove("text-black");
+    toggleBtn.classList.add("text-white");
+  }
+});
+
+
 document.getElementById("filterReset").onclick = () => {
   filters = { category: "", type: "" };
   currentPage = 1;
